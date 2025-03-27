@@ -8,23 +8,19 @@ def account():
     if request.method == "POST":
         user = request.form["user"]
         pwd = request.form["pwd"]
-        result = "您輸入的帳號是：" + user + "; 密碼為：" + pwd 
+        result = f"您輸入的帳號是：{user}; 密碼為：{pwd}"
         return result
     else:
         return render_template("account.html")
-
-
 
 @app.route("/about")
 def me():
     return render_template("about.html")
 
-
-
 @app.route("/welcome", methods=["GET", "POST"])
 def welcome():
-    user = request.values.get("nick")  
-    return render_template("welcome.html", name=user) 
+    user = request.values.get("nick", "郭碩元")  # 預設值
+    return render_template("welcome.html", name=user)
 
 @app.route("/")
 def index():
@@ -36,20 +32,14 @@ def index():
     homepage += "<a href=/about>郭碩元簡介網頁</a><br>"
     return homepage
 
-
-
-
-
-    return "hello 郭碩元!"
-
 @app.route("/mis")
 def course():
     return "<h1>郭碩元</h1>"
 
 @app.route("/today")
 def today():
-    now = datetime.now()
-    return render_template("today.html", datetime=str(now))
+    now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    return render_template("today.html", datetime=now)
 
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True)  # 開啟 debug 模式，方便查看錯誤
