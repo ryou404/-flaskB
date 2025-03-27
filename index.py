@@ -15,12 +15,15 @@ def account():
 
 
 
+@app.route("/about")
+def me():
+     return render_template("about.html")
 
 
 
 @app.route("/welcome", methods=["GET", "POST"])
 def welcome():
-    user = request.values.get("r4iner")  
+    user = request.values.get("nick")  
     return render_template("welcome.html", name=user) 
 
 @app.route("/")
